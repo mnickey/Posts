@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="10b87afa-440b-4633-ba2f-9957506eab2c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/posts/api.py" afterPath="$PROJECT_DIR$/posts/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/api_tests.py" afterPath="$PROJECT_DIR$/tests/api_tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/posts/decorators.py" afterPath="$PROJECT_DIR$/posts/decorators.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/posts/models.py" afterPath="$PROJECT_DIR$/posts/models.py" />
-    </list>
+    <list default="true" id="10b87afa-440b-4633-ba2f-9957506eab2c" name="Default" comment="" />
     <ignored path="Posts.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />

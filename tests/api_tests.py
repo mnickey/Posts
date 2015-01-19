@@ -90,9 +90,12 @@ class TestAPI(unittest.TestCase):
     def testUnsupportedAcceptHeaders(self):
         response = self.client.get("/api/posts",
                    headers=[("Accept", "application/xml")] )
-        # self.assertEqual(response.status_code, 406)
+        # Why is this getting a respose code of 200???
+        # When changing this to 200 from 406, this passes...
+        self.assertEqual(response.status_code, 406)
         self.assertEqual(response.mimetype, "application/json")
         data = json.loads(response.data)
+        # until it gets here...
         self.assertEqual(data["message"],
                          "Request must accept application/json data")
 
