@@ -101,6 +101,33 @@ class TestAPI(unittest.TestCase):
         # until it gets here...
         self.assertEqual(data["message"],
                          "Request must accept application/json data")
+    def testGetPostsWithTitle(self):
+        """ Filtering posts by title """
+        postA = models.Post(title="Post with green eggs", body="Just a test")
+        postB = models.Post(title="Post with ham", body="Still a test")
+        postC = models.Post(title="Post with green eggs and ham",
+                            body="Another test")
+
+        session.add_all([postA, postB, postC])
+        session.commit()
+
+        response = self.client.get("/api/posts?title_like=ham",
+            headers=[("Accept", "application/json")]
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, "application/json")
+
+        posts = json.loads(response.data)
+        self.assertEqual(len(posts), 2)
+
+        post = posts[0]
+        self.assertEqual(post["title"], "Post with ham")
+        self.assertEqual(post["body"], "Still a test")
+
+        post = posts[1]
+        self.assertEqual(post["title"], "Post with green eggs and ham")
+        self.assertEqual(post["body"], "Another test")
 
 if __name__ == "__main__":
     unittest.main()
