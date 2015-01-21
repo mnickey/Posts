@@ -128,6 +128,32 @@ class TestAPI(unittest.TestCase):
         post = posts[1]
         self.assertEqual(post["title"], "Post with green eggs and ham")
         self.assertEqual(post["body"], "Another test")
+    def testGetPostsWithTitleAndBody(self):
+        """ Filtering posts by title and body """
+        postA = models.Post(title="Post with green eggs", body="Just a test")
+        postB = models.Post(title="Post with ham", body="An eggs test")
+        postC = models.Post(title="Post with green eggs and ham",
+                            body="Another eggs test")
+
+        session.add_all([postA, postB, postC])
+        session.commit()
+
+        response = self.client.get("/api/posts?title_like=ham&body_like=eggs",
+            headers=[("Accept", "application/json")] )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, "application/json")
+
+        posts = json.loads(response.data)
+        self.assertEqual(len(posts), 2)
+
+        post = posts[0]
+        self.assertEqual(post["title"], "Post with ham")
+        self.assertEqual(post["body"], "An eggs test")
+
+        post = posts[1]
+        self.assertEqual(post["title"], "Post with green eggs and ham")
+        self.assertEqual(post["body"], "Another eggs test")
 
 if __name__ == "__main__":
     unittest.main()
